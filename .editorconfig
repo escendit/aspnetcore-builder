@@ -1,0 +1,54 @@
+; Common Editor Configuration
+; Root EditorConfig
+root = true
+
+; General Settings
+[*]
+charset = utf-8
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_size = 4
+indent_style = space
+tab_width = 4
+
+space_before_self_closing = true
+resharper_space_before_self_closing = true
+
+space_after_last_attribute = false
+resharper_space_after_last_attribute = false
+
+attribute_style = first_attribute_on_single_line
+attribute_indent = align_by_first_attribute
+
+[*.cs]
+charset = utf-8-bom
+resharper_check_namespace_highlighting = none
+
+[*.scss]
+tab_width = 2
+indent_size = 2
+ij_sass_indent_size = 2
+
+[Solution.slnx]
+tab_width = 2
+indent_size = 2
+
+[*.json]
+tab_width = 2
+indent_size = 2
+
+[*.{yml,yaml}]
+tab_width = 2
+indent_size = 2
+
+[*.{props,targets,csproj,dcproj}]
+tab_width = 2
+indent_size = 2
+
+[.editorconfig]
+tab_width = 2
+indent_size = 2
+
+[nuget.config]
+tab_width = 2
+indent_size = 2
