@@ -42,7 +42,7 @@ public static class WebApplicationExtensions
 
             var section = app.Configuration.GetSection("DOTNET_GATEWAY_MOUNTPOINT");
 
-            if (!section.Exists())
+            if (!section.Exists() && string.IsNullOrEmpty(section.Value))
             {
                 return app;
             }
