@@ -5,7 +5,9 @@ namespace Microsoft.AspNetCore.Builder;
 
 using System.Net;
 using Diagnostics;
+using Microsoft.Extensions.Hosting.Internal;
 using Mvc;
+using IHostingEnvironment = Hosting.IHostingEnvironment;
 
 /// <summary>
 /// Contains extension methods for configuring and extending a web application.
@@ -68,52 +70,69 @@ public static class WebApplicationExtensions
             app.UseExceptionHandler(
                 new ExceptionHandlerOptions
                 {
-                    ExceptionHandler = async (context) =>
-                    {
-                        var exception = context.Features.Get<IExceptionHandlerFeature>();
-                        switch (exception?.Error)
-                        {
-                            case HttpRequestException httpRequestException:
-                                {
-                                    var request = context.Request;
-                                    var instance = $"{request.Scheme}://{request.Host}{request.PathBase}{request.Path}";
-                                    await context
-                                        .Response
-                                        .WriteAsJsonAsync(
-                                            new ProblemDetails
-                                            {
-                                                Status = (int?)httpRequestException.StatusCode,
-                                                Detail = httpRequestException.StackTrace,
-                                                Type = $"https://httpstatuses.io/{httpRequestException.StatusCode!}",
-                                                Instance = instance,
-                                                Title = httpRequestException.Message,
-                                            })
-                                        .ConfigureAwait(false);
-                                    break;
-                                }
-
-                            case { } genericException:
-                                {
-                                    var request = context.Request;
-                                    var instance = $"{request.Scheme}://{request.Host}{request.Path}";
-                                    await context
-                                        .Response
-                                        .WriteAsJsonAsync(
-                                            new ProblemDetails
-                                            {
-                                                Status = (int)HttpStatusCode.InternalServerError,
-                                                Detail = genericException.StackTrace,
-                                                Type = $"https://httpstatuses.io/500",
-                                                Instance = instance,
-                                                Title = genericException.Message,
-                                            })
-                                        .ConfigureAwait(false);
-                                    break;
-                                }
-                        }
-                    },
+                    ExceptionHandler = ExceptionAsyncHandler,
+                    StatusCodeSelector = ExceptionStatusCodeSelector,
                 });
             return app;
+        }
+
+        private static async Task ExceptionAsyncHandler(HttpContext context)
+        {
+            var exception = context.Features.Get<IExceptionHandlerFeature>();
+            var environment = context.RequestServices.GetRequiredService<IWebHostEnvironment>();
+
+            switch (exception?.Error)
+            {
+                case HttpRequestException httpRequestException:
+                    {
+                        var request = context.Request;
+                        var instance = $"{request.Scheme}://{request.Host}{request.PathBase}{request.Path}";
+                        await context
+                            .Response
+                            .WriteAsJsonAsync(
+                                new ProblemDetails
+                                {
+                                    Status = (int?)httpRequestException.StatusCode,
+                                    Detail = environment.IsProduction() ? null : httpRequestException.StackTrace,
+                                    Type = $"https://httpstatuses.io/{httpRequestException.StatusCode!}",
+                                    Instance = instance,
+                                    Title = httpRequestException.Message,
+                                },
+                                cancellationToken: context.RequestAborted)
+                            .ConfigureAwait(false);
+                        break;
+                    }
+
+                case { } genericException:
+                    {
+                        var request = context.Request;
+                        var instance = $"{request.Scheme}://{request.Host}{request.PathBase}{request.Path}";
+                        await context
+                            .Response
+                            .WriteAsJsonAsync(
+                                new ProblemDetails
+                                {
+                                    Status = (int)HttpStatusCode.InternalServerError,
+                                    Detail = environment.IsProduction() ? null : genericException.StackTrace,
+                                    Type = $"https://httpstatuses.io/{(int)HttpStatusCode.InternalServerError}",
+                                    Instance = instance,
+                                    Title = genericException.Message,
+                                },
+                                cancellationToken: context.RequestAborted)
+                            .ConfigureAwait(false);
+                        break;
+                    }
+            }
+        }
+
+        private static int ExceptionStatusCodeSelector(Exception exception)
+        {
+            if (exception is HttpRequestException { StatusCode: not null } httpRequestException)
+            {
+                return (int)httpRequestException.StatusCode;
+            }
+
+            return (int)HttpStatusCode.InternalServerError;
         }
     }
 }
