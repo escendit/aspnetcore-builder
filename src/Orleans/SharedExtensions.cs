@@ -20,7 +20,7 @@ internal static class SharedExtensions
                 .GetRequiredSection("ConnectionStrings")
                 .GetSection(connectionStringName);
 
-            if (!configurationSection.Exists() || configurationSection.Value is null)
+            if (!configurationSection.Exists() || string.IsNullOrWhiteSpace(configurationSection.Value))
             {
                 throw new InvalidOperationException($"Connection string with name {connectionStringName} is empty or invalid in configuration.");
             }
