@@ -1,29 +1,23 @@
 # ASP.NET Core Builder Extensions
 
-ASP.NET Core Builder Extensions provides a set of extensions for `WebApplicationBuilder` to simplify the configuration of various services and integrations within Escendit projects.
+ASP.NET Core Builder Extensions provides a set of extensions for `WebApplicationBuilder` and `WebApplication` to simplify the configuration of various services and integrations within Escendit projects.
+
+## Packages
+
+This repository contains the following packages:
+
+| Package | Description |
+| --- | --- |
+| `Escendit.AspNetCore.Builder.Core` | Core extensions for `WebApplication` and `WebApplicationBuilder`. |
+| `Escendit.AspNetCore.Builder.Orleans` | Orleans client extensions for `WebApplicationBuilder`. |
 
 ## Installation
 
-This is a base library or repository for ASP.NET Core builder-related extensions. Specific implementations can be found in their respective repositories.
-
-To install the core package (if applicable):
+You can install the packages via NuGet:
 
 ```bash
-dotnet add package Escendit.AspNetCore.Builder
-```
-
-## Usage
-
-These extensions are typically used during the application startup to configure services:
-
-```csharp
-var builder = WebApplication.CreateBuilder(args);
-
-// Example usage of an extension (from a specific implementation)
-// builder.AddCustomService(...);
-
-var app = builder.Build();
-app.Run();
+dotnet add package Escendit.AspNetCore.Builder.Core
+dotnet add package Escendit.AspNetCore.Builder.Orleans
 ```
 
 ## Contributing
