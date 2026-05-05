@@ -3,10 +3,14 @@
 
 namespace Escendit.AspNetCore.Builder;
 
+using System.Diagnostics.CodeAnalysis;
+
 /// <summary>
 /// Defines a filter that determines whether a connection retry should be attempted
 /// in the event of a failed connection attempt.
 /// </summary>
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)]
+[SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "Instantiated via DI")]
 internal sealed class ConnectionRetryFilter : IClientConnectionRetryFilter
 {
     private const int MaxRetry = 5;

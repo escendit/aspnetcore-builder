@@ -3,9 +3,13 @@
 
 namespace Escendit.AspNetCore.Builder;
 
+using System.Diagnostics.CodeAnalysis;
+
 /// <summary>
 /// Provides functionality to monitor and handle the connection status of a cluster.
 /// </summary>
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors)]
+[SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "Instantiated via DI")]
 internal sealed class ClusterConnectionStatusProvider
 {
     /// <summary>

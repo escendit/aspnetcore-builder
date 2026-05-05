@@ -1,8 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <OutputType>Library</OutputType>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Escendit.AspNetCore.Diagnostics.HealthChecks" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md">
+      <Pack>true</Pack>
+      <PackagePath/>
+    </None>
   </ItemGroup>
 </Project>
