@@ -20,13 +20,14 @@ internal sealed class ConnectionRetryFilter : IClientConnectionRetryFilter
     /// <inheritdoc/>
     public async Task<bool> ShouldRetryConnectionAttempt(Exception exception, CancellationToken cancellationToken)
     {
-        if (_retryCount >= MaxRetry)
+        if (cancellationToken.IsCancellationRequested ||
+            exception is not SiloUnavailableException)
         {
             return false;
         }
 
-        if (cancellationToken.IsCancellationRequested ||
-            exception is not SiloUnavailableException)
+        var attempt = Interlocked.Increment(ref _retryCount);
+        if (attempt > MaxRetry)
         {
             return false;
         }
