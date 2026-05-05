@@ -12,6 +12,8 @@ using System.Diagnostics.CodeAnalysis;
 [SuppressMessage("Performance", "CA1812:Avoid uninstantiated internal classes", Justification = "Instantiated via DI")]
 internal sealed class ClusterConnectionStatusProvider
 {
+    private volatile bool _isConnected;
+
     /// <summary>
     /// Gets a value indicating whether indicates whether the cluster is currently connected.
     /// </summary>
@@ -24,7 +26,7 @@ internal sealed class ClusterConnectionStatusProvider
     /// <value>
     /// A value indicating whether indicates whether the cluster is currently connected.
     /// </value>
-    public bool IsConnected { get; private set; }
+    public bool IsConnected => _isConnected;
 
     /// <summary>
     /// Handles the event triggered when the cluster connection is lost.
@@ -32,7 +34,7 @@ internal sealed class ClusterConnectionStatusProvider
     /// <param name="sender">The sender of the event.</param>
     /// <param name="e">The event arguments associated with the cluster disconnection.</param>
     public void OnClusterConnectionLost(object sender, EventArgs e)
-        => IsConnected = false;
+        => _isConnected = false;
 
     /// <summary>
     /// Handles the event triggered when the number of connected gateways changes.
@@ -43,6 +45,6 @@ internal sealed class ClusterConnectionStatusProvider
     public void OnGatewayCountChanged(object sender, GatewayCountChangedEventArgs eventArgs)
     {
         ArgumentNullException.ThrowIfNull(eventArgs);
-        IsConnected = eventArgs.NumberOfConnectedGateways > 0;
+        _isConnected = eventArgs.NumberOfConnectedGateways > 0;
     }
 }
