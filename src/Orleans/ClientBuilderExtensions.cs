@@ -22,12 +22,11 @@ public static class ClientBuilderExtensions
     extension(WebApplicationBuilder builder)
     {
         /// <summary>
-        /// Configures the Orleans client runtime for the application by applying
-        /// default clustering settings and enabling activity propagation.
+        /// Configures the Orleans client runtime in the provided <see cref="WebApplicationBuilder"/> instance.
+        /// The configuration includes default settings for hosting, clustering, and activity propagation.
         /// </summary>
         /// <returns>
-        /// The updated <see cref="WebApplicationBuilder"/> instance to support
-        /// fluent configuration chaining.
+        /// The updated <see cref="WebApplicationBuilder"/> instance for further configuration chaining.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// Thrown when the <see cref="WebApplicationBuilder"/> instance is null.
@@ -43,19 +42,23 @@ public static class ClientBuilderExtensions
         }
 
         /// <summary>
-        /// Configures ADO.NET client clustering for Orleans in the host application builder.
+        /// Configures the Orleans client runtime to use ADO.NET-based clustering.
+        /// This method sets up ADO.NET clustering for the client by utilizing the specified connection string name
+        /// and database provider invariant for connecting to the Orleans cluster.
         /// </summary>
         /// <param name="connectionStringName">
-        /// The name of the connection string in the configuration to use for ADO.NET clustering. Defaults to "Clustering:AdoNet".
+        /// The name of the connection string configured in the application's configuration file,
+        /// used to connect to the Orleans cluster.
         /// </param>
         /// <param name="connectionStringInvariant">
-        /// The invariant name of the database provider to use for ADO.NET clustering. Defaults to "Npgsql".
+        /// The invariant name of the database provider (e.g., "Npgsql" for PostgreSQL) used for ADO.NET clustering.
         /// </param>
         /// <returns>
-        /// The modified <see cref="HostApplicationBuilder"/> instance.
+        /// The updated <see cref="WebApplicationBuilder"/> instance for further configuration chaining.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        /// Thrown if the <paramref name="connectionStringName"/> or <paramref name="connectionStringInvariant"/> is null.
+        /// Thrown when the <see cref="WebApplicationBuilder"/> instance,
+        /// <paramref name="connectionStringName"/>, or <paramref name="connectionStringInvariant"/> is null.
         /// </exception>
         public WebApplicationBuilder AddAdoNetClientClustering(
             string connectionStringName = ClusterConnectionAdoNetStringName,
@@ -76,20 +79,17 @@ public static class ClientBuilderExtensions
         }
 
         /// <summary>
-        /// Configures the Orleans client runtime to use Redis clustering by connecting
-        /// to a Redis instance specified by the connection string name.
+        /// Configures Redis-based clustering for the Orleans client runtime in the provided <see cref="WebApplicationBuilder"/> instance.
+        /// The method retrieves the Redis connection string from the configuration and uses it to set up clustering.
         /// </summary>
         /// <param name="connectionStringName">
-        /// The name of the connection string in the application's configuration
-        /// that specifies the Redis instance for clustering. Defaults to "Clustering:Redis".
+        /// The configuration key used to retrieve the Redis connection string. Defaults to "Clustering:Redis".
         /// </param>
         /// <returns>
-        /// The updated <see cref="HostApplicationBuilder"/> instance to enable fluent
-        /// configuration chaining.
+        /// The updated <see cref="WebApplicationBuilder"/> instance for further configuration chaining.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        /// Thrown when the <see cref="HostApplicationBuilder"/> instance is null
-        /// or when the specified connection string name is null.
+        /// Thrown when the <see cref="WebApplicationBuilder"/> instance or the <paramref name="connectionStringName"/> is null.
         /// </exception>
         public WebApplicationBuilder AddRedisClientClustering(
             string connectionStringName = ClusterConnectionRedisStringName)
