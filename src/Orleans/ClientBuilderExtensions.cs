@@ -117,6 +117,7 @@ public static class ClientBuilderExtensions
         /// </exception>
         public WebApplicationBuilder AddClientHostingDefaults()
         {
+            ArgumentNullException.ThrowIfNull(builder);
             builder
                 .UseOrleansClient(clientBuilder =>
                 {
@@ -133,11 +134,7 @@ public static class ClientBuilderExtensions
                                 var statusProvider = sp.GetRequiredService<ClusterConnectionStatusProvider>();
                                 return statusProvider.OnGatewayCountChanged;
                             }))
-                        .UseConnectionRetryFilter<ConnectionRetryFilter>()
-                        .Services
-                        .Configure<ClusterOptions>(options => clientBuilder
-                            .Configuration
-                            .Bind(options));
+                        .UseConnectionRetryFilter<ConnectionRetryFilter>();
                 });
 
             return builder;
