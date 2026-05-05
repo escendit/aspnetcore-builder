@@ -1,6 +1,9 @@
 <Solution>
-  <Folder Name="/docs/"/>
-  <Folder Name="/eng/"/>
-  <Folder Name="/src/"/>
-  <Folder Name="/test/"/>
+  <Folder Name="/docs/" />
+  <Folder Name="/eng/" />
+  <Folder Name="/src/">
+    <Project Path="src\Core\Escendit.AspNetCore.Builder.Core.csproj" />
+    <Project Path="src\Orleans\Escendit.AspNetCore.Builder.Orleans.csproj" />
+  </Folder>
+  <Folder Name="/test/" />
 </Solution>

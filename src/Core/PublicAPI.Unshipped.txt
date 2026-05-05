@@ -1,0 +1,6 @@
+﻿Microsoft.AspNetCore.Builder.WebApplicationExtensions
+Microsoft.AspNetCore.Builder.WebApplicationExtensions.extension(Microsoft.AspNetCore.Builder.WebApplication!)
+Microsoft.AspNetCore.Builder.WebApplicationExtensions.extension(Microsoft.AspNetCore.Builder.WebApplication!).MapGatewayApi(Microsoft.AspNetCore.Http.PathString? mountPoint = null) -> Microsoft.AspNetCore.Builder.WebApplication!
+Microsoft.AspNetCore.Builder.WebApplicationExtensions.extension(Microsoft.AspNetCore.Builder.WebApplication!).UseExceptionHandling() -> Microsoft.AspNetCore.Builder.WebApplication!
+static Microsoft.AspNetCore.Builder.WebApplicationExtensions.MapGatewayApi(this Microsoft.AspNetCore.Builder.WebApplication! app, Microsoft.AspNetCore.Http.PathString? mountPoint = null) -> Microsoft.AspNetCore.Builder.WebApplication!
+static Microsoft.AspNetCore.Builder.WebApplicationExtensions.UseExceptionHandling(this Microsoft.AspNetCore.Builder.WebApplication! app) -> Microsoft.AspNetCore.Builder.WebApplication!
