@@ -1,12 +1,12 @@
 Microsoft.AspNetCore.Builder.ClientBuilderExtensions
-Microsoft.AspNetCore.Builder.ClientBuilderExtensions.extension(Microsoft.AspNetCore.Builder.WebApplicationBuilder!)
-Microsoft.AspNetCore.Builder.ClientBuilderExtensions.extension(Microsoft.AspNetCore.Builder.WebApplicationBuilder!).AddAdoNetClientClustering(string! connectionStringName = "Clustering:AdoNet", string! connectionStringInvariant = "Npgsql") -> Microsoft.AspNetCore.Builder.WebApplicationBuilder!
-Microsoft.AspNetCore.Builder.ClientBuilderExtensions.extension(Microsoft.AspNetCore.Builder.WebApplicationBuilder!).AddClientHostingDefaults() -> Microsoft.AspNetCore.Builder.WebApplicationBuilder!
-Microsoft.AspNetCore.Builder.ClientBuilderExtensions.extension(Microsoft.AspNetCore.Builder.WebApplicationBuilder!).AddNatsClientStreams(string! name = "Platform", string! connectionStringName = "Streaming:NATS") -> Microsoft.AspNetCore.Builder.WebApplicationBuilder!
-Microsoft.AspNetCore.Builder.ClientBuilderExtensions.extension(Microsoft.AspNetCore.Builder.WebApplicationBuilder!).AddOrleansClientRuntime() -> Microsoft.AspNetCore.Builder.WebApplicationBuilder!
-Microsoft.AspNetCore.Builder.ClientBuilderExtensions.extension(Microsoft.AspNetCore.Builder.WebApplicationBuilder!).AddRedisClientClustering(string! connectionStringName = "Clustering:Redis") -> Microsoft.AspNetCore.Builder.WebApplicationBuilder!
-static Microsoft.AspNetCore.Builder.ClientBuilderExtensions.AddAdoNetClientClustering(this Microsoft.AspNetCore.Builder.WebApplicationBuilder! builder, string! connectionStringName = "Clustering:AdoNet", string! connectionStringInvariant = "Npgsql") -> Microsoft.AspNetCore.Builder.WebApplicationBuilder!
-static Microsoft.AspNetCore.Builder.ClientBuilderExtensions.AddClientHostingDefaults(this Microsoft.AspNetCore.Builder.WebApplicationBuilder! builder) -> Microsoft.AspNetCore.Builder.WebApplicationBuilder!
-static Microsoft.AspNetCore.Builder.ClientBuilderExtensions.AddNatsClientStreams(this Microsoft.AspNetCore.Builder.WebApplicationBuilder! builder, string! name = "Platform", string! connectionStringName = "Streaming:NATS") -> Microsoft.AspNetCore.Builder.WebApplicationBuilder!
-static Microsoft.AspNetCore.Builder.ClientBuilderExtensions.AddOrleansClientRuntime(this Microsoft.AspNetCore.Builder.WebApplicationBuilder! builder) -> Microsoft.AspNetCore.Builder.WebApplicationBuilder!
-static Microsoft.AspNetCore.Builder.ClientBuilderExtensions.AddRedisClientClustering(this Microsoft.AspNetCore.Builder.WebApplicationBuilder! builder, string! connectionStringName = "Clustering:Redis") -> Microsoft.AspNetCore.Builder.WebApplicationBuilder!
+Microsoft.AspNetCore.Builder.ClientBuilderExtensions.extension<TBuilder>(TBuilder)
+Microsoft.AspNetCore.Builder.ClientBuilderExtensions.extension<TBuilder>(TBuilder).AddAdoNetClientClustering(string! connectionStringName = "Clustering:AdoNet", string! connectionStringInvariant = "Npgsql") -> TBuilder
+Microsoft.AspNetCore.Builder.ClientBuilderExtensions.extension<TBuilder>(TBuilder).AddClientHostingDefaults() -> TBuilder
+Microsoft.AspNetCore.Builder.ClientBuilderExtensions.extension<TBuilder>(TBuilder).AddNatsClientStreams(string! name = "Platform", string! connectionStringName = "Streaming:NATS") -> TBuilder
+Microsoft.AspNetCore.Builder.ClientBuilderExtensions.extension<TBuilder>(TBuilder).AddOrleansClientRuntime() -> TBuilder
+Microsoft.AspNetCore.Builder.ClientBuilderExtensions.extension<TBuilder>(TBuilder).AddRedisClientClustering(string! connectionStringName = "Clustering:Redis") -> TBuilder
+static Microsoft.AspNetCore.Builder.ClientBuilderExtensions.AddAdoNetClientClustering<TBuilder>(this TBuilder builder, string! connectionStringName = "Clustering:AdoNet", string! connectionStringInvariant = "Npgsql") -> TBuilder
+static Microsoft.AspNetCore.Builder.ClientBuilderExtensions.AddClientHostingDefaults<TBuilder>(this TBuilder builder) -> TBuilder
+static Microsoft.AspNetCore.Builder.ClientBuilderExtensions.AddNatsClientStreams<TBuilder>(this TBuilder builder, string! name = "Platform", string! connectionStringName = "Streaming:NATS") -> TBuilder
+static Microsoft.AspNetCore.Builder.ClientBuilderExtensions.AddOrleansClientRuntime<TBuilder>(this TBuilder builder) -> TBuilder
+static Microsoft.AspNetCore.Builder.ClientBuilderExtensions.AddRedisClientClustering<TBuilder>(this TBuilder builder, string! connectionStringName = "Clustering:Redis") -> TBuilder

@@ -1,6 +1,6 @@
 ﻿Microsoft.AspNetCore.Builder.WebApplicationExtensions
-Microsoft.AspNetCore.Builder.WebApplicationExtensions.extension(Microsoft.AspNetCore.Builder.WebApplication!)
-Microsoft.AspNetCore.Builder.WebApplicationExtensions.extension(Microsoft.AspNetCore.Builder.WebApplication!).MapGatewayApi(Microsoft.AspNetCore.Http.PathString? mountPoint = null) -> Microsoft.AspNetCore.Builder.WebApplication!
-Microsoft.AspNetCore.Builder.WebApplicationExtensions.extension(Microsoft.AspNetCore.Builder.WebApplication!).UseExceptionHandling() -> Microsoft.AspNetCore.Builder.WebApplication!
-static Microsoft.AspNetCore.Builder.WebApplicationExtensions.MapGatewayApi(this Microsoft.AspNetCore.Builder.WebApplication! app, Microsoft.AspNetCore.Http.PathString? mountPoint = null) -> Microsoft.AspNetCore.Builder.WebApplication!
-static Microsoft.AspNetCore.Builder.WebApplicationExtensions.UseExceptionHandling(this Microsoft.AspNetCore.Builder.WebApplication! app) -> Microsoft.AspNetCore.Builder.WebApplication!
+Microsoft.AspNetCore.Builder.WebApplicationExtensions.extension<TApp>(TApp)
+Microsoft.AspNetCore.Builder.WebApplicationExtensions.extension<TApp>(TApp).MapGatewayApi(Microsoft.AspNetCore.Http.PathString? mountPoint = null) -> TApp
+Microsoft.AspNetCore.Builder.WebApplicationExtensions.extension<TApp>(TApp).UseExceptionHandling() -> TApp
+static Microsoft.AspNetCore.Builder.WebApplicationExtensions.MapGatewayApi<TApp>(this TApp app, Microsoft.AspNetCore.Http.PathString? mountPoint = null) -> TApp
+static Microsoft.AspNetCore.Builder.WebApplicationExtensions.UseExceptionHandling<TApp>(this TApp app) -> TApp

@@ -5,9 +5,7 @@ namespace Microsoft.AspNetCore.Builder;
 
 using System.Net;
 using Diagnostics;
-using Microsoft.Extensions.Hosting.Internal;
 using Mvc;
-using IHostingEnvironment = Hosting.IHostingEnvironment;
 
 /// <summary>
 /// Contains extension methods for configuring and extending a web application.
@@ -17,7 +15,8 @@ public static class WebApplicationExtensions
     /// <summary>
     /// Provides extension methods for configuring gateway API functionality within a web application.
     /// </summary>
-    extension(WebApplication app)
+    extension<TApp>(TApp app)
+    where TApp : IApplicationBuilder
     {
         /// <summary>
         /// Configures the web application to use a gateway API.
@@ -32,7 +31,7 @@ public static class WebApplicationExtensions
         /// <exception cref="ArgumentNullException">
         /// Thrown when the <see cref="WebApplication"/> instance is null.
         /// </exception>
-        public WebApplication MapGatewayApi(PathString? mountPoint = null)
+        public TApp MapGatewayApi(PathString? mountPoint = null)
         {
             ArgumentNullException.ThrowIfNull(app);
 
@@ -42,7 +41,8 @@ public static class WebApplicationExtensions
                 return app;
             }
 
-            var section = app.Configuration.GetSection("DOTNET_GATEWAY_MOUNTPOINT");
+            var configuration = app.ApplicationServices.GetRequiredService<IConfiguration>();
+            var section = configuration.GetSection("DOTNET_GATEWAY_MOUNTPOINT");
 
             if (!section.Exists() && string.IsNullOrEmpty(section.Value))
             {
@@ -64,14 +64,14 @@ public static class WebApplicationExtensions
         /// <exception cref="ArgumentNullException">
         /// Thrown when the <see cref="WebApplication"/> instance is null.
         /// </exception>
-        public WebApplication UseExceptionHandling()
+        public TApp UseExceptionHandling()
         {
             ArgumentNullException.ThrowIfNull(app);
             app.UseExceptionHandler(
                 new ExceptionHandlerOptions
                 {
-                    ExceptionHandler = ExceptionAsyncHandler,
-                    StatusCodeSelector = ExceptionStatusCodeSelector,
+                    ExceptionHandler = ExceptionAsyncHandler<TApp>,
+                    StatusCodeSelector = ExceptionStatusCodeSelector<TApp>,
                 });
             return app;
         }
