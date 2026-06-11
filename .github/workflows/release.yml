@@ -1,0 +1,96 @@
+name: Release
+
+on:
+  release:
+    types:
+      - published
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_NOLOGO: true
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Set VERSION from release tag
+        id: version
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          TAG="${RELEASE_TAG}"
+          TAG="${TAG:-v0.0.0}"
+          VERSION="${TAG#v}"
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v5
+        with:
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: '**/packages.lock.json'
+
+      - name: Restore .NET Packages
+        run: dotnet restore --locked-mode
+
+      - name: Build .NET Solution
+        run: dotnet build --configuration Release --no-restore /p:Version=${VERSION}
+
+      - name: Pack .NET Solution
+        run: dotnet pack --configuration Release --no-restore --no-build -o nupkgs
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: nupkgs
+          path: nupkgs/
+
+  deploy-github:
+    name: Publish to GitHub Packages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    needs: build
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: nupkgs
+          path: nupkgs/
+
+      - name: Publish to GitHub Packages
+        run: dotnet nuget push nupkgs/*.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
+
+  deploy-nuget:
+    name: Publish to NuGet
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    needs: build
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: nupkgs
+          path: nupkgs/
+
+      - name: NuGet login (OIDC → temp API key)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
+      - name: Publish to NuGet.org
+        run: dotnet nuget push nupkgs/*.nupkg --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
