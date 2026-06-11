@@ -4,9 +4,9 @@
     "net10.0": {
       "Escendit.Tools.Branding": {
         "type": "Direct",
-        "requested": "[1.2.0, )",
-        "resolved": "1.2.0",
-        "contentHash": "Tleka3RGcnG623z+4nxdGKINEQn9roCuNOPe0UHqckl4tndXfXEkWezEx011apR45Lqvc33KKrRnlDKv9kbRQQ=="
+        "requested": "[2.0.0, )",
+        "resolved": "2.0.0",
+        "contentHash": "m9mp64bnIxZwebiwarsRl8MQ5W1ZSjoFE8kIV7Q1z28D7O9bM2O9IOSXirSPMayn9ppDmH83WK8ofMbVpNCSbA=="
       },
       "Escendit.Tools.CodeAnalysis.NetAnalyzers": {
         "type": "Direct",
