@@ -8,7 +8,8 @@ namespace Microsoft.AspNetCore.Builder;
 /// </summary>
 internal static class SharedExtensions
 {
-    extension(WebApplicationBuilder builder)
+    extension<TBuilder>(TBuilder builder)
+        where TBuilder : IHostApplicationBuilder
     {
         internal string GetConnectionStringValue(string connectionStringName)
         {
@@ -22,7 +23,8 @@ internal static class SharedExtensions
 
             if (!configurationSection.Exists() || string.IsNullOrWhiteSpace(configurationSection.Value))
             {
-                throw new InvalidOperationException($"Connection string with name {connectionStringName} is empty or invalid in configuration.");
+                throw new InvalidOperationException(
+                    $"Connection string with name {connectionStringName} is empty or invalid in configuration.");
             }
 
             return configurationSection.Get<string>()!;

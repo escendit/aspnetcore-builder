@@ -19,7 +19,8 @@ public static class ClientBuilderExtensions
     /// Provides extension methods for configuring client runtime behavior
     /// in Orleans-based applications using a <see cref="WebApplicationBuilder"/>.
     /// </summary>
-    extension(WebApplicationBuilder builder)
+    extension<TBuilder>(TBuilder builder)
+        where TBuilder : IHostApplicationBuilder
     {
         /// <summary>
         /// Configures the Orleans client runtime in the provided <see cref="WebApplicationBuilder"/> instance.
@@ -31,7 +32,7 @@ public static class ClientBuilderExtensions
         /// <exception cref="ArgumentNullException">
         /// Thrown when the <see cref="WebApplicationBuilder"/> instance is null.
         /// </exception>
-        public WebApplicationBuilder AddOrleansClientRuntime()
+        public TBuilder AddOrleansClientRuntime()
         {
             ArgumentNullException.ThrowIfNull(builder);
             builder
@@ -60,7 +61,7 @@ public static class ClientBuilderExtensions
         /// Thrown when the <see cref="WebApplicationBuilder"/> instance,
         /// <paramref name="connectionStringName"/>, or <paramref name="connectionStringInvariant"/> is null.
         /// </exception>
-        public WebApplicationBuilder AddAdoNetClientClustering(
+        public TBuilder AddAdoNetClientClustering(
             string connectionStringName = ClusterConnectionAdoNetStringName,
             string connectionStringInvariant = ClusterInvariantName)
         {
@@ -91,7 +92,7 @@ public static class ClientBuilderExtensions
         /// <exception cref="ArgumentNullException">
         /// Thrown when the <see cref="WebApplicationBuilder"/> instance or the <paramref name="connectionStringName"/> is null.
         /// </exception>
-        public WebApplicationBuilder AddRedisClientClustering(
+        public TBuilder AddRedisClientClustering(
             string connectionStringName = ClusterConnectionRedisStringName)
         {
             ArgumentNullException.ThrowIfNull(builder);
@@ -115,7 +116,7 @@ public static class ClientBuilderExtensions
         /// <exception cref="ArgumentNullException">
         /// Thrown when the <see cref="WebApplicationBuilder"/> instance is null.
         /// </exception>
-        public WebApplicationBuilder AddClientHostingDefaults()
+        public TBuilder AddClientHostingDefaults()
         {
             ArgumentNullException.ThrowIfNull(builder);
             builder
@@ -158,7 +159,7 @@ public static class ClientBuilderExtensions
         /// <exception cref="InvalidOperationException">
         /// Thrown when the connection string associated with <paramref name="connectionStringName"/> is empty, null, or in an invalid format.
         /// </exception>
-        public WebApplicationBuilder AddNatsClientStreams(
+        public TBuilder AddNatsClientStreams(
             string name = DefaultStreamName,
             string connectionStringName = StreamingConnectionNatsStringName)
         {
@@ -202,7 +203,7 @@ public static class ClientBuilderExtensions
             return builder;
         }
 
-        private WebApplicationBuilder AddClientClusteringDefaults()
+        private TBuilder AddClientClusteringDefaults()
         {
             ArgumentNullException.ThrowIfNull(builder);
 
@@ -216,7 +217,7 @@ public static class ClientBuilderExtensions
             return builder;
         }
 
-        private WebApplicationBuilder AddClientActivityPropagation()
+        private TBuilder AddClientActivityPropagation()
         {
             ArgumentNullException.ThrowIfNull(builder);
             builder
