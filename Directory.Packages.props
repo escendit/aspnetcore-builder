@@ -91,9 +91,9 @@
     <PackageVersion Include="Spectre.Console.Cli" Version="0.50.0" />
     <PackageVersion Include="Spectre.Console.Cli.Extensions.DependencyInjection" Version="0.11.0" />
     <PackageVersion Include="StyleCop.Analyzers.Unstable" Version="1.2.0.556" />
-    <PackageVersion Include="Swashbuckle.AspNetCore" Version="8.1.1" />
-    <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="8.1.1" />
-    <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerGen" Version="8.1.1" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="8.1.4" />
+    <PackageVersion Include="Swashbuckle.AspNetCore.Annotations" Version="8.1.4" />
+    <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerGen" Version="8.1.4" />
     <PackageVersion Include="System.ServiceModel.Federation" Version="8.1.2" />
     <PackageVersion Include="System.ServiceModel.Http" Version="8.1.2" />
     <PackageVersion Include="System.ServiceModel.NetFramingBase" Version="8.1.2" />
