@@ -11,7 +11,7 @@
     <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.4.0" />
     <PackageVersion Include="CommunityToolkit.HighPerformance" Version="8.4.0" />
     <PackageVersion Include="coverlet.collector" Version="6.0.4" />
-    <PackageVersion Include="Dapper" Version="2.1.66" />
+    <PackageVersion Include="Dapper" Version="2.1.79" />
     <PackageVersion Include="Escendit.AspNetCore.Diagnostics.HealthChecks" Version="0.1.0-rc.0" />
     <PackageVersion Include="Escendit.Extensions.Workflows" Version="0.1.0-rc.3" />
     <PackageVersion Include="Escendit.Tools.Branding" Version="2.0.0" />
